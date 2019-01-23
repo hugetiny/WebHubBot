@@ -56,7 +56,7 @@ class Spider(CrawlSpider):
         phItem = PornVideoItem()
         selector = Selector(response)
         # logging.info(selector)
-        _ph_info = re.findall('var flashvars =(.*?),\n', selector.extract())
+        _ph_info = re.findall('var flashvars =(.*?)[,|;]\n', selector.extract())
         logging.debug('PH信息的JSON:')
         logging.debug(_ph_info)
         _ph_info_json = json.loads(_ph_info[0])
