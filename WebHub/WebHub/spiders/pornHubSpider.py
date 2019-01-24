@@ -1,4 +1,4 @@
-#coding:utf-8
+# coding:utf-8
 import requests
 import logging
 from scrapy.spiders import CrawlSpider
@@ -15,8 +15,7 @@ class Spider(CrawlSpider):
     name = 'pornHubSpider'
     host = 'https://www.pornhub.com'
     start_urls = list(set(PH_TYPES))
-    logging.getLogger("requests").setLevel(logging.WARNING
-                                          )  # 将requests的日志级别设成WARNING
+    logging.getLogger("requests").setLevel(logging.WARNING)  # 将requests的日志级别设成WARNING
     logging.basicConfig(
         level=logging.DEBUG,
         format=
@@ -28,6 +27,7 @@ class Spider(CrawlSpider):
     # test = True
     def start_requests(self):
         for ph_type in self.start_urls:
+            # for page_num in range(1, 1):
             yield Request(url='https://www.pornhub.com/%s' % ph_type,
                           callback=self.parse_ph_key)
 
@@ -52,6 +52,7 @@ class Spider(CrawlSpider):
             yield Request(url=self.host + url_next[0],
                           callback=self.parse_ph_key)
             # self.test = False
+
     def parse_ph_info(self, response):
         phItem = PornVideoItem()
         selector = Selector(response)
